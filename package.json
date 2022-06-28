@@ -1,0 +1,65 @@
+{
+  "name": "@debionetwork/nestjs-gcloud-secret-manager",
+  "version": "0.0.1-beta.1",
+  "description": "Google Cloud Secret Manager module for Nest framework",
+  "author": {
+    "name": "Agustinus Theodorus",
+    "email": "agustinustheoo@gmail.com"
+  },
+  "main": "./dist/index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/debionetwork/nestjs-gcloud-secret-manager.git"
+  },
+  "scripts": {
+    "start": "tsc -p tsconfig.json",
+    "start:dev": "tsc -p tsconfig.json -w",
+    "test": "jest --passWithNoTests",
+    "precommit": "lint-staged",
+    "prettier": "prettier src/**/*.ts --write && git status",
+    "build": "rimraf dist && npm run build:lib && npm test",
+    "build:lib": "tsc -p tsconfig.json",
+    "prepublish:npm": "npm run build",
+    "publish:npm": "npm publish --access public",
+    "prepublish:next": "npm run build",
+    "publish:next": "npm publish --access public --tag next"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^8.0.6",
+    "@nestjs/core": "^8.0.0",
+    "@nestjs/platform-express": "^8.0.0"
+  },
+  "dependencies": {
+    "@google-cloud/secret-manager": "^4.0.0"
+  },
+  "devDependencies": {
+    "@nestjs/common": "8.0.6",
+    "@nestjs/core": "8.0.0",
+    "@nestjs/platform-express": "8.0.0",
+    "@nestjs/testing": "8.0.0",
+    "@types/jest": "26.0.24",
+    "@types/node": "16.0.0",
+    "husky": "4.2.5",
+    "jest": "27.0.6",
+    "lint-staged": "10.2.11",
+    "prettier": "2.0.5",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
+    "supertest": "6.1.3",
+    "ts-jest": "27.0.3",
+    "tslint": "6.1.3",
+    "typescript": "4.3.5"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}
