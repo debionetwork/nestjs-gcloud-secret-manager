@@ -26,7 +26,7 @@ export class GCloudSecretManagerService {
       for (let i = 0; i < secrets.length; i++) {
         const secret = secrets[i];
         const arrPath = secret.name.split('/');
-        const envId = arrPath.at(-1);
+        const envId = arrPath.slice(-1)[0];
         const [version] = await this._client.accessSecretVersion({
           name: `${secret.name}/versions/latest`,
         });
