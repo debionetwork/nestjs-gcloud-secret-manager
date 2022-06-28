@@ -2,8 +2,8 @@ import { Injectable, Logger } from '@nestjs/common';
 import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
 
 @Injectable()
-export class GoogleSecretManagerService {
-  private readonly logger: Logger = new Logger(GoogleSecretManagerService.name);
+export class GCloudSecretManagerService {
+  private readonly logger: Logger = new Logger(GCloudSecretManagerService.name);
   private _client: SecretManagerServiceClient;
   private _readConfig: boolean = true;
 
@@ -11,8 +11,8 @@ export class GoogleSecretManagerService {
   private _secretsList: Map<string, string> = new Map<string, string>();
   private _secretsLoaded: boolean = false;
 
-  constructor() {
-    this._parentSecrets = "";
+  constructor(parent: string) {
+    this._parentSecrets = parent;
     this._client = new SecretManagerServiceClient();
   }
 
