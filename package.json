@@ -7,7 +7,7 @@
     "email": "agustinustheoo@gmail.com"
   },
   "main": "./dist/index.js",
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/debionetwork/nestjs-gcloud-secret-manager.git"
