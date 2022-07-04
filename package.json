@@ -15,7 +15,7 @@
   "scripts": {
     "start": "tsc -p tsconfig.json",
     "start:dev": "tsc -p tsconfig.json -w",
-    "test": "jest --passWithNoTests",
+    "test": "jest --config ./tests/jest.json --runInBand",
     "precommit": "lint-staged",
     "prettier": "prettier src/**/*.ts --write && git status",
     "build": "rimraf dist && npm run build:lib && npm test",
@@ -36,6 +36,7 @@
   "devDependencies": {
     "@nestjs/common": "8.0.6",
     "@nestjs/core": "8.0.0",
+    "dotenv": "^16.0.1",
     "@nestjs/platform-express": "8.0.0",
     "@nestjs/testing": "8.0.0",
     "@types/jest": "26.0.24",

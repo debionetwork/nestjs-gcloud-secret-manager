@@ -5,7 +5,7 @@ import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
 export class GCloudSecretManagerService {
   private readonly logger: Logger = new Logger(GCloudSecretManagerService.name);
   private _client: SecretManagerServiceClient;
-  private _readConfig: boolean = true;
+  private _readConfig: boolean = false;
 
   private _parentSecrets: string;
   private _secretsList: Map<string, string> = new Map<string, string>();
@@ -17,8 +17,10 @@ export class GCloudSecretManagerService {
   }
 
   async loadSecrets() {
-    if (!this._readConfig) return;
+    if (this._readConfig) return;
     try {
+      this._readConfig = true;
+
       const [secrets] = await this._client.listSecrets({
         parent: this._parentSecrets,
       });
@@ -37,6 +39,7 @@ export class GCloudSecretManagerService {
       this._secretsLoaded = true;
     } catch (err) {
       this.logger.log(err);
+      throw new Error(err);
     } finally {
       this._readConfig = false;
     }
