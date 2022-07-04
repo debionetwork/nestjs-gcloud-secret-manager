@@ -25,8 +25,7 @@ export class GCloudSecretManagerService {
         parent: this._parentSecrets,
       });
 
-      for (let i = 0; i < secrets.length; i++) {
-        const secret = secrets[i];
+      for (const secret of secrets) {
         const arrPath = secret.name.split('/');
         const envId = arrPath.slice(-1)[0];
         const [version] = await this._client.accessSecretVersion({
@@ -46,7 +45,7 @@ export class GCloudSecretManagerService {
   }
 
   getSecret(key: string): String {
-    if(!this._secretsLoaded) throw new Error("Secrets are not loaded");
+    if (!this._secretsLoaded) throw new Error('Secrets are not loaded');
     return this._secretsList.get(key);
   }
 }

@@ -1,0 +1,36 @@
+name: Deploy automation
+
+on:
+  release:
+    types: [published]
+
+concurrency:
+  group: deploy-automation
+
+jobs:
+    release:
+        name: 🚀 Release
+        runs-on: ubuntu-latest
+        environment: production
+        strategy:
+          matrix:
+            node-version: [14.x]
+        steps:
+            - name: 📚 Checkout code
+              uses: actions/checkout@v2
+              with:
+                fetch-depth: 0
+            - name: 🟢 Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v2
+              with:
+                node-version: ${{ matrix.node-version }}
+            - name: 💿 Install Dependencies
+              run: npm install
+            - name: ✔️ Checks
+              run: npm run check
+            - name: 🏗️ Build
+              run: npm run build
+            - name: 🚀 Publish
+              run: npm publish --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}

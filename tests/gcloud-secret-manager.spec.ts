@@ -30,7 +30,7 @@ describe('GCloudSecretManagerModule', () => {
   it('loadSecrets: should return', async () => {
     // Assert
     await gcloudSecretManagerService.loadSecrets();
-  });
+  }, 40000);
 
   it('loadSecrets: should be defined', async () => {
     // Arrange
@@ -38,5 +38,5 @@ describe('GCloudSecretManagerModule', () => {
 
     // Assert
     expect(gcloudSecretManagerService.getSecret("POSTGRES_HOST")).toBeDefined();
-  });
+  }, 40000);
 });
