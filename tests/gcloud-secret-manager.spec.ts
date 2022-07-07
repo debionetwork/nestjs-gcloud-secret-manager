@@ -5,18 +5,16 @@ import { GCloudSecretManagerService } from '../lib/gcloud-secret-manager.service
 describe('GCloudSecretManagerModule', () => {
   let module: TestingModule;
   let gcloudSecretManagerService: GCloudSecretManagerService;
-  
-  const parent = process.env.PARENT ?? "";
+
+  const parent = process.env.PARENT ?? '';
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
-      imports: [
-        GCloudSecretManagerModule.withConfig(parent)
-      ],
+      imports: [GCloudSecretManagerModule.withConfig(parent)],
     }).compile();
 
     gcloudSecretManagerService = module.get(GCloudSecretManagerService);
-  });
+  }, 60000);
 
   afterAll(async () => {
     await module.close();
@@ -27,16 +25,8 @@ describe('GCloudSecretManagerModule', () => {
     expect(gcloudSecretManagerService).toBeDefined();
   });
 
-  it('loadSecrets: should return', async () => {
+  it('getSecret: should be get value', async () => {
     // Assert
-    await gcloudSecretManagerService.loadSecrets();
-  }, 40000);
-
-  it('loadSecrets: should be defined', async () => {
-    // Arrange
-    await gcloudSecretManagerService.loadSecrets();
-
-    // Assert
-    expect(gcloudSecretManagerService.getSecret("POSTGRES_HOST")).toBeDefined();
+    expect(gcloudSecretManagerService.getSecret('POSTGRES_HOST')).toBeDefined();
   }, 40000);
 });
