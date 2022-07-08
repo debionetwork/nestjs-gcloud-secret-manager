@@ -14,7 +14,7 @@ export class GCloudSecretManagerModule {
 
     try {
       const [secrets] = await client.listSecrets({
-        parent: parent,
+        parent,
       });
 
       for (const secret of secrets) {
