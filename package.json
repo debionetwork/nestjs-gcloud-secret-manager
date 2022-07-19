@@ -1,6 +1,6 @@
 {
   "name": "@debionetwork/nestjs-gcloud-secret-manager",
-  "version": "0.0.2-beta.2",
+  "version": "0.0.2-beta.4",
   "description": "Google Cloud Secret Manager module for Nest framework",
   "author": {
     "name": "Agustinus Theodorus",

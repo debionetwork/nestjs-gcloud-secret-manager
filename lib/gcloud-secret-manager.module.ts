@@ -16,7 +16,7 @@ export class GCloudSecretManagerModule {
 
     const gsmServiceProvider = {
       provide: GCloudSecretManagerService,
-      useFactory: (_parent: string) => GCloudSecretManagerService.loadSecrets(_parent),
+      useFactory: async (_parent: string) => await GCloudSecretManagerService.loadSecrets(_parent),
       inject: [GCLOUD_SECRET_MANAGER_PARENT],
     };
 
