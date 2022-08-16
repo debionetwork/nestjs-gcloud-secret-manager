@@ -4,13 +4,24 @@ import { GCloudSecretManagerService } from '../lib/gcloud-secret-manager.service
 
 describe('GCloudSecretManagerModule', () => {
   let module: TestingModule;
-  let gcloudSecretManagerService: GCloudSecretManagerService;
+
+  const DB_LOCATIONS = 'VALUE_DB_POSTGRES_LOCATION';
+
+  let listKey = {
+    POSTGRES_HOST: null,
+    DB_LOCATIONS: DB_LOCATIONS,
+    REDIS_HOST: null,
+  } as const;
+
+  type keys = keyof typeof listKey;
+
+  let gcloudSecretManagerService: GCloudSecretManagerService<keys>;
 
   const parent = process.env.PARENT ?? '';
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
-      imports: [GCloudSecretManagerModule.withConfig(parent)],
+      imports: [GCloudSecretManagerModule.withConfig(parent, listKey)],
     }).compile();
 
     gcloudSecretManagerService = module.get(GCloudSecretManagerService);
@@ -28,5 +39,10 @@ describe('GCloudSecretManagerModule', () => {
   it('getSecret: should be get value', async () => {
     // Assert
     expect(gcloudSecretManagerService.getSecret('POSTGRES_HOST')).toBeDefined();
+  }, 40000);
+
+  it('getSecret: should get value from listKey', async () => {
+    // Assert
+    expect(gcloudSecretManagerService.getSecret('DB_LOCATIONS')).toEqual(DB_LOCATIONS);
   }, 40000);
 });
