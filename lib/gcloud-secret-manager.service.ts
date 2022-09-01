@@ -38,7 +38,8 @@ export class GCloudSecretManagerService<T> {
 
         this._gCloudSecretManagerService = new GCloudSecretManagerService(secretsList);
       } catch (err) {
-        throw new Error(err);
+        this._gCloudSecretManagerService = new GCloudSecretManagerService(new Map(Object.entries(listKeyValue)));
+        return this._gCloudSecretManagerService;
       }
     }
 
